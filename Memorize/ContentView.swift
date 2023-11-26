@@ -21,6 +21,7 @@ struct ContentView: View {
 }
 
 struct CardView: View {
+    var isFaceUp: Bool = false
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
