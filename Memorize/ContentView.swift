@@ -9,11 +9,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    let emojis = ["🥶", "👻", "🔫", "🎯", "🤪", "😀", "😂", "😊", "😎", "😍", "🤩", "😜", "😇", "🤗", "🤔"]
+    let emojisF = ["🥶","🤪", "😀", "😂", "😊", "😎", "😍", "🤩", "😜", "😇", "🤗", "🤔"]
+    let emojisC = ["🧑‍🎄", "🎄", "🎁", "💸", "🤶", "🎅🏼"]
+    let emojisH = ["💀", "👻", "🎃", "🍭", "😱", "👺"]
+    
+    @State private var selection = "emojisF"
+    let theme = ["Faces", "Christmas", "Halloween"]
+    let themeSymbol = ["face.smiling", "gift", "moonset"]
+    
     @State var cardCount: Int = 4
     
     var body: some View {
         VStack {
+            Text("Memorize!").font(.title)
             ScrollView {
                 cards
             }
@@ -26,15 +34,29 @@ struct ContentView: View {
     var cards: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))]) {
             ForEach(0..<cardCount, id: \.self) { index in
-                CardView(content: emojis[index])
+                CardView(content: emojisF[index])
                     .aspectRatio(2/3, contentMode: .fit)
             }
         }.foregroundColor(.orange)
     }
     
+    var themeChooser: some View {
+        Picker("Select theme", selection: $selection) {
+            ForEach(0..<theme.count, id: \.self) { index in
+                HStack {
+                    Image(systemName: themeSymbol[index])
+                    Text(theme[index])
+                }
+            }
+        }.pickerStyle(.menu)
+        
+    }
+    
     var cardCountAdjusters: some View {
         HStack {
             cardRemover
+            Spacer()
+            themeChooser
             Spacer()
             cardAdder
         }.imageScale(.large).font(.title)
@@ -53,7 +75,7 @@ struct ContentView: View {
             cardCount += offset
         }, label: {
             Image(systemName: symbol)
-        }).disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
+        }).disabled(cardCount + offset < 1 || cardCount + offset > emojisF.count)
     }
 }
 
