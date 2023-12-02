@@ -22,7 +22,7 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-    var isFaceUp: Bool = false
+    @State var isFaceUp: Bool = false
     
     var body: some View {
         ZStack {
@@ -35,6 +35,8 @@ struct CardView: View {
             } else {
                 base.fill()
             }
+        }.onTapGesture {
+            isFaceUp = !isFaceUp
         }
     }
 }
