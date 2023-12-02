@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let emojis = ["🥶", "👻", "🔫", "🎯"]
+    let emojis = ["🥶", "👻", "🔫", "🎯", "T"]
     
     
     var body: some View {
